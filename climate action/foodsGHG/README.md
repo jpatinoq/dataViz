@@ -1,5 +1,5 @@
 # Climate Action
-## Diets and carbon consumption
+## Diets and Greenhouse gases emissions
 
 # Data source: Poore and Nemecek (2018) - processed by Our World in Data
 

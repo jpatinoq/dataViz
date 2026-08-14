@@ -178,7 +178,7 @@ ggsave(
 
 # GHG per kg of product
 ## TEXTS ----
-t = "Greenhouse gas emissions\nper Kg of food product"
+t = "Greenhouse gas emissions\nper kilogram of food product"
 st = "Emissions in kg of carbon dioxide-equivalents.\n"
 ct = paste0(
   "Data source: Poore and Nemecek (2018) DOI: 10.1126/science.aaq0216",

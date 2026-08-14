@@ -95,11 +95,12 @@ d = 300
 # GHG per 1000 kcal ----
 ## TEXTS ----
 t = "Greenhouse gas emissions\nper 1000 kilocalories"
-st = "Emissions in kg of carbon dioxide-equivalents.\n"
-ct = paste0(
+st = "Units: kg of carbon dioxide-equivalents.\n"
+ct = paste(
   "Data source: Poore and Nemecek (2018) DOI: 10.1126/science.aaq0216",
-  "\n",
-  "Adapted from OurWorldinData.org/environmental-impacts-of-food | CC BY 4.0"
+  "Adapted from OurWorldinData.org/environmental-impacts-of-food | CC BY 4.0",
+  "by Jorge Patiño on 2026-08-14",
+  sep = "\n"
 )
 xt = NULL
 yt = NULL
@@ -111,7 +112,7 @@ dff = dff %>%
   )
 
 ## PLOT ----
-ggplot(data = dff) + 
+p1 = ggplot(data = dff) + 
   geom_col(
     aes(
       y = Entity, 
@@ -162,12 +163,13 @@ ggplot(data = dff) +
     plot.caption = element_text(hjust = 0, size = rel(0.5), color = "gray40"),
     plot.title = element_text(face = "bold"),
     plot.subtitle = element_text(color = "gray40"),
-    plot.background = element_rect(fill = "#EBEBEB")
+    plot.background = element_rect(fill = "#EBEBEB"),
+    plot.margin = margin(t = 0.5, r = 1, b = 0.5, l = 0.5, unit = "cm")
   )
 
 
 ggsave(
-  plot = last_plot(),
+  plot = p1,
   filename = "food-GHG-1000kcal.png",
   height = 13.50,
   width = 10.80,
@@ -178,15 +180,8 @@ ggsave(
 
 # GHG per kg of product
 ## TEXTS ----
+# only text that changed from previous plot
 t = "Greenhouse gas emissions\nper kilogram of food product"
-st = "Emissions in kg of carbon dioxide-equivalents.\n"
-ct = paste0(
-  "Data source: Poore and Nemecek (2018) DOI: 10.1126/science.aaq0216",
-  "\n",
-  "Adapted from OurWorldinData.org/environmental-impacts-of-food | CC BY 4.0"
-)
-xt = NULL
-yt = NULL
 
 # reorder data
 dff = dff %>% 
@@ -195,7 +190,7 @@ dff = dff %>%
   )
 
 ## PLOT ----
-ggplot(data = dff) + 
+p2 = ggplot(data = dff) + 
   geom_col(
     aes(
       y = Entity, 
@@ -246,14 +241,27 @@ ggplot(data = dff) +
     plot.caption = element_text(hjust = 0, size = rel(0.5), color = "gray40"),
     plot.title = element_text(face = "bold"),
     plot.subtitle = element_text(color = "gray40"),
-    plot.background = element_rect(fill = "#EBEBEB")
+    plot.background = element_rect(fill = "#EBEBEB"),
+    plot.margin = margin(t = 0.5, r = 1, b = 0.5, l = 0.5, unit = "cm")
   )
 
 ggsave(
-  plot = last_plot(),
+  plot = p2,
   filename = "food-GHG-kg-product.png",
   height = 13.50,
   width = 10.80,
   units = u,
   dpi = d
 )
+
+# PDF
+pdf_w = 10.8/2.54
+pdf_h = 13.5/2.54
+
+pdf("food-GHG-emissions.pdf", width = pdf_w, height = pdf_h)
+print(p1)
+print(p2)
+dev.off()
+
+# END
+
